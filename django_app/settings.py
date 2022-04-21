@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*gitpod.io',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -136,3 +140,12 @@ from django.core.management.commands.runserver import Command as runserver
 
 ALLOWED_HOSTS = ['*']
 runserver.default_port = '7000'        # <-- Your port
+
+# Allows the default API permissions for the installed REST framework
+'''
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+''' #uncomment upon install
