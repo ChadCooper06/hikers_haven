@@ -33,15 +33,17 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Application definition
-
+# Only applications listed here are migrated so each new one must be here before migration will work
 INSTALLED_APPS = [
+    'hikers_haven',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_app'
+    'django_app',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -142,10 +144,9 @@ ALLOWED_HOSTS = ['*']
 runserver.default_port = '7000'        # <-- Your port
 
 # Allows the default API permissions for the installed REST framework
-'''
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
-''' #uncomment upon install
