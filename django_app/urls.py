@@ -18,7 +18,7 @@ from django.urls import path, include
 from django_app import settings
 from django.conf.urls.static import static
 from hikers_haven.views import index
-#from app_name.models import {all the models}
+from hikers_haven.models import Forum, Topic, Post
 #from rest_framework import routers
 
 from rest_framework_simplejwt.views import (
