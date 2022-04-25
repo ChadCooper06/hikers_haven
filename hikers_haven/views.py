@@ -25,7 +25,7 @@ class ForumViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows the forums to be viewed or edited
     """
-    queryset = Forum.objects.all().order_by('topics')
+    queryset = Forum.objects.all().order_by('-topics')
     serializer_class = ForumSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -33,7 +33,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows the topics to be viewed or edited.
     """
-    queryset = Topic.objects.all().order_by('label')
+    queryset = Topic.objects.all().order_by('-label')
     serializer_class = TopicSerializer
     permission_classes = [permissions.IsAuthenticated]
 

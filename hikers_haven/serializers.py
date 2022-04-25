@@ -22,7 +22,7 @@ class TopicSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'date_added', 'user_id', 'comment', 'pinned']
+        fields = ['title', 'content', 'date_added', 'user_id', 'pinned']
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
