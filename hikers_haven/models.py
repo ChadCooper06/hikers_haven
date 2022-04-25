@@ -21,8 +21,17 @@ class Post(models.Model):
     title = models.ForeignKey('Topic', on_delete=models.CASCADE, default=None)
     content = models.CharField(max_length=5000, blank=False, null=False)
     date_added = models.DateField()
-    #user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    #comment = models.ForeignKey('Comment', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=None)
+    comments = models.CharField(max_length=900, blank=False, null=False)
+    pinned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    date_added = models.DateField()
+    comm_by = models.ForeignKey('auth.User', on_delete=models.DO_NOTHING, default=None)
+    comm_on = models.ForeignKey('Post', on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.comm_by
