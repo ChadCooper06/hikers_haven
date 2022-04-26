@@ -18,8 +18,8 @@ from django.urls import path, include
 from django_app import settings
 from django.conf.urls.static import static
 from hikers_haven import views
-from hikers_haven.views import index, UserViewSet, ForumViewSet, TopicViewSet, PostViewSet, CommentViewSet
-from hikers_haven.models import Forum, Topic, Post, Comment
+from hikers_haven.views import UserCreate, UserDetail, ForumViewSet, TopicViewSet, PostViewSet, CommentViewSet
+#from hikers_haven.models import Forum, Topic, Post, Comment, CustomUser
 from rest_framework import routers
 
 from rest_framework_simplejwt.views import (
@@ -30,7 +30,8 @@ from rest_framework_simplejwt.views import (
 #The routers registered and listed here will provide the routes to each viewset
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+# router.register(r'users', views.UserCreate)
+# router.register(r'details', views.UserDetail)
 router.register(r'forums', views.ForumViewSet)
 router.register(r'topics', views.TopicViewSet)
 router.register(r'posts', views.PostViewSet)
@@ -43,6 +44,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('hikers_haven/', include('hikers_haven.urls')),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('hikers_haven/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('hikers_haven/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+# ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,25 +1,38 @@
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import permissions, status, viewsets, generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.decorators import action
+from .models import CustomUser
+
+from .serializers import CustomUserSerializer, ForumSerializer, TopicSerializer, PostSerializer, CommentSerializer
+
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth.models import User
-from hikers_haven.models import Forum, Topic, Post, Comment
-from rest_framework import viewsets
-from rest_framework import permissions
-from hikers_haven.serializers import UserSerializer, ForumSerializer, TopicSerializer, PostSerializer, CommentSerializer
+#from django.contrib.auth.models import User
+from hikers_haven.models import Forum, Topic, Post, Comment, CustomUser
 
-def index(request):
-    return HttpResponse('We\'re going to do what we do every night Pinky...try to take over the world!' 
-        '\n NARF!')
+
+
+class UserCreate(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format='json'):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserDetail(generics.RetrieveAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+
 
 # Create your views here.
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 class ForumViewSet(viewsets.ModelViewSet):
     """

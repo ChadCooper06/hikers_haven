@@ -1,8 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
+
+class CustomUser(AbstractUser):
+    #name = models.CharField(max_length=200, blank=False, default='Discussion Topics')
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.email}"
 
 # Create your models here.
 class Forum(models.Model):
-    #name = models.CharField(max_length=200, blank=False, default='Discussion Topics')
     topics = models.CharField(max_length=200, blank=False, null=False)
 
     def __str__(self):
@@ -12,7 +20,7 @@ class Forum(models.Model):
 class Topic(models.Model):
     f_name = models.ForeignKey('Forum', on_delete=models.CASCADE, default=None)
     label = models.CharField(max_length=100, blank=False, null=False)
-    posts = models.ForeignKey('Post', default=0, on_delete=models.SET_DEFAULT)
+    posts = models.ForeignKey('Post', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.label
@@ -22,7 +30,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, blank=False, default='New Post')
     content = models.CharField(max_length=5000, blank=False, null=False)
     date_added = models.DateField()
-    user_id = models.ForeignKey('auth.User', default=1, on_delete=models.SET_DEFAULT)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     #comments = models.CharField(max_length=2000, blank=False, default=None)
     pinned = models.BooleanField(default=False)
 
@@ -32,7 +40,7 @@ class Post(models.Model):
 class Comment(models.Model):
     date_added = models.DateField()
     content = models.CharField(max_length=2000, blank=False, default=None)
-    comm_by = models.ForeignKey('auth.User', default=1, on_delete=models.SET_DEFAULT)
+    comm_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     comm_on = models.ForeignKey('Post', default=1, on_delete=models.SET_DEFAULT)
 
     def __str__(self):
