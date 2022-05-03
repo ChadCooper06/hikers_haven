@@ -35,12 +35,14 @@ CSRF_TRUSTED_ORIGINS = [
 AUTH_USER_MODEL = 'hikers_haven.CustomUser'
 
 
-CORS_ALLOWED_ORIGINS = [    
-    'http://localhost:8000',
-    'https://*.gitpod.io'
-]
+# CORS_ALLOWED_ORIGINS = [    
+#     'http://localhost:8000',
+#     'https://*.gitpod.io/',
+#     'https://3000',
+#     'https://localhost:7000'
+# ]
 
-#CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 # Only applications listed here are migrated so each new one must be here before migration will work
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party
+    'corsheaders',
     'django_app',
     'rest_framework',
     # My apps
@@ -175,10 +178,14 @@ runserver.default_port = '7000'        # <-- Your port
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.IsAuthenticated' #switch to this once log in is working
         'rest_framework.permissions.AllowAny'
     ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ], 
 }

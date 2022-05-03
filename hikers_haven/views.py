@@ -40,7 +40,7 @@ class ForumViewSet(viewsets.ModelViewSet):
     """
     queryset = Forum.objects.all().order_by('-topics')
     serializer_class = ForumSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
 class TopicViewSet(viewsets.ModelViewSet):
     """
@@ -48,7 +48,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     """
     queryset = Topic.objects.all().order_by('-label')
     serializer_class = TopicSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class PostViewSet(viewsets.ModelViewSet):
     """
@@ -56,7 +56,7 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.all().order_by('-date_added')
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class CommentViewSet(viewsets.ModelViewSet):
     """
