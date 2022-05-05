@@ -27,7 +27,6 @@ class ForumSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Forum
         fields = ('topics',)
-        depth = 2
 
 class TopicSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

@@ -48,7 +48,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     """
     queryset = Topic.objects.all().order_by('-label')
     serializer_class = TopicSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class PostViewSet(viewsets.ModelViewSet):
     """
