@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-#the paths to URLs that will conenct to the user sign-up and sign-in links
+#the paths to URLs that will connect to the user sign-up and sign-in links
 
 urlpatterns = [
     path('user/signup/', views.UserCreate.as_view(), name="create_user"),
