@@ -23,22 +23,22 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class ForumSerializer(serializers.ModelSerializer):
+class ForumSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Forum
         fields = ('topics',)
 
-class TopicSerializer(serializers.ModelSerializer):
+class TopicSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Topic
         fields = ['label', 'posts']
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
-        fields = ['forum', 'title', 'content', 'date_added', 'pinned', 'user_id']
+        fields = ['title', 'content', 'date_added', 'user_id', 'pinned']
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
         fields = ['date_added', 'comm_by', 'comm_on']
