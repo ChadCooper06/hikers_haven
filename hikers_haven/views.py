@@ -4,12 +4,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from .models import CustomUser
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import CustomUserSerializer, ForumSerializer, TopicSerializer, PostSerializer, CommentSerializer
 
 from django.shortcuts import render
 from django.http import HttpResponse
-#from django.contrib.auth.models import User
 from hikers_haven.models import Forum, Topic, Post, Comment, CustomUser
 
 
@@ -38,7 +38,7 @@ class ForumViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows the forums to be viewed or edited
     """
-    queryset = Forum.objects.all().order_by('-topics')
+    queryset = Forum.objects.all().order_by('topics')
     serializer_class = ForumSerializer
     #permission_classes = [permissions.IsAuthenticated]
 
@@ -46,7 +46,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows the topics to be viewed or edited.
     """
-    queryset = Topic.objects.all().order_by('-label')
+    queryset = Topic.objects.all().order_by('f_name')
     serializer_class = TopicSerializer
     #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -54,9 +54,11 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows all the posts to be viewed or edited.
     """
-    queryset = Post.objects.all().order_by('-date_added')
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['forum_id'] # Filters the posts by forum they are on
+    #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class CommentViewSet(viewsets.ModelViewSet):
     """

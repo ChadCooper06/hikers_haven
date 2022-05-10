@@ -19,7 +19,7 @@ from django_app import settings
 from django.conf.urls.static import static
 from hikers_haven import views
 from hikers_haven.views import UserCreate, UserDetail, ForumViewSet, TopicViewSet, PostViewSet, CommentViewSet
-#from hikers_haven.models import Forum, Topic, Post, Comment, CustomUser
+from hikers_haven.models import Forum, Post, CustomUser
 from rest_framework import routers
 
 
@@ -27,8 +27,8 @@ from rest_framework import routers
 #The routers registered and listed here will provide the routes to each viewset
 
 router = routers.DefaultRouter()
-# router.register(r'users', views.UserCreate)
-# router.register(r'details', views.UserDetail)
+#router.register(r'users', views.UserCreate)
+#router.register(r'details', views.UserDetail)
 router.register(r'forums', views.ForumViewSet)
 router.register(r'topics', views.TopicViewSet)
 router.register(r'posts', views.PostViewSet)
@@ -42,4 +42,4 @@ urlpatterns = [
     path('hikers_haven/', include('hikers_haven.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]
-# ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
