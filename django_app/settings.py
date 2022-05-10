@@ -37,7 +37,6 @@ AUTH_USER_MODEL = 'hikers_haven.CustomUser'
 
 # CORS_ALLOWED_ORIGINS = [    
 #     'http://localhost:8000',
-#     'https://*.gitpod.io/',
 #     'https://3000',
 #     'https://localhost:7000'
 # ]
@@ -47,6 +46,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 # Only applications listed here are migrated so each new one must be here before migration will work
 INSTALLED_APPS = [
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

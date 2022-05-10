@@ -4,7 +4,6 @@ from django.conf import settings
 
 
 class CustomUser(AbstractUser):
-    #name = models.CharField(max_length=200, blank=False, default='Discussion Topics')
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.email}"
@@ -27,10 +26,11 @@ class Topic(models.Model):
 
 # one topic and one user per post but many posts per topic and many posts per user
 class Post(models.Model):
+    forum = models.ForeignKey('Forum', on_delete=models.PROTECT, default=2)
     title = models.CharField(max_length=200, blank=False, default='New Post')
     content = models.CharField(max_length=5000, blank=False, null=False)
     date_added = models.DateField()
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    user_id = models.ForeignKey('customUser', on_delete=models.PROTECT)
     #comments = models.CharField(max_length=2000, blank=False, default=None)
     pinned = models.BooleanField(default=False)
 

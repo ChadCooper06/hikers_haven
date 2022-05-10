@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from .models import CustomUser
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import CustomUserSerializer, ForumSerializer, TopicSerializer, PostSerializer, CommentSerializer
 
@@ -54,9 +55,11 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows all the posts to be viewed or edited.
     """
-    queryset = Post.objects.all().order_by('-date_added')
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['forum__id'] # Filters the posts by forum they are on
+    #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class CommentViewSet(viewsets.ModelViewSet):
     """
