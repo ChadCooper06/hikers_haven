@@ -58,7 +58,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['forum__id'] # Filters the posts by forum they are on
+    filterset_fields = ['forum_id'] # Filters the posts by forum they are on
     #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class CommentViewSet(viewsets.ModelViewSet):
