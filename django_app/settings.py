@@ -44,6 +44,7 @@ ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.gitpod.io',
+    'https://*.herokuapp.com',
 ]
 
 AUTH_USER_MODEL = 'hikers_haven.CustomUser'
