@@ -37,7 +37,7 @@ class ForumSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    forum = CustomForeignKeyField(queryset=Forum.objects.all(), serializer=ForumSerializer)
+    #forum = CustomForeignKeyField(queryset=Forum.objects.all(), serializer=ForumSerializer)
     class Meta:
         model = Post
         fields = ['forum', 'title', 'content', 'date_added', 'user_id', 'pinned']
