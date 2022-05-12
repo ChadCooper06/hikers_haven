@@ -1,6 +1,7 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from .models import Forum, Topic, Post, Comment, CustomUser
+#from .fields import CustomForeignKeyField
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -23,17 +24,20 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class ForumSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Forum
-        fields = ('topics',)
-
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Topic
-        fields = ['label', 'posts']
+        fields = '__all__'
+
+class ForumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Forum
+        fields = '__all__'
+
+
 
 class PostSerializer(serializers.ModelSerializer):
+    forum = CustomForeignKeyField(queryset=Forum.objects.all(), serializer=ForumSerializer)
     class Meta:
         model = Post
         fields = ['forum', 'title', 'content', 'date_added', 'user_id', 'pinned']
